@@ -1,0 +1,26 @@
+{
+  "name": "mini1-todolist",
+  "version": "1.0.0",
+  "description": "Mini Project 1: Todo List ============",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcng/todolist_react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcng/todolist_react/issues"
+  },
+  "homepage": "https://github.com/bcng/todolist_react#readme",
+  "dependencies": {
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.12.1"
+  }
+}
