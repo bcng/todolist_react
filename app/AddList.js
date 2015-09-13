@@ -14,28 +14,26 @@ var AddList = React.createClass({
 	},
 
 	handleSubmit: function(e) {
-		if (e.keyCode === 13) {
-			this.props.add(this.state.listName);
-			this.setState({
-				listName: ''
-			});
-		}
+		event.preventDefault();
+		this.props.add(this.state.listName);
+		this.setState({
+			listName: ''
+		})
 	},
 
 	render: function() {
 		return (
-			<div>
+			<form className="col-sm-6" onSubmit={this.handleSubmit}>
 				<h3 className="text-center"> Create New List </h3>
 				List Name:
 				<input type="text"
+					placeholder="List Name"
 					className="form-control"
 					value={this.state.listName}
-					placeholder="List Name"
 					onChange={this.handleChange} />
-				<button type="submit"
-					className="btn btn-primary"
-					onKeyDown={this.handleSubmit}> Submit </button>
-			</div>
+				<button type="submit" className="btn btn-primary">
+					Submit </button>
+			</form>
 		)
 	}
 });

@@ -46,17 +46,34 @@
 
 	var React = __webpack_require__(1);
 	var ListContainer = __webpack_require__(157);
+	var AddList = __webpack_require__(160);
 
 	var App = React.createClass({displayName: "App",
-		render: function() {
-			return (
-				React.createElement("div", {className: "container"}, 
-					React.createElement("div", {className: "row"}, 
-						React.createElement(ListContainer, null)
-					)
-				)
-			)
-		}
+		getInitialState() {
+			return {
+				lists: []
+			}
+		},
+
+		addNewList: function(newList){
+		    this.setState({
+				lists: this.state.lists.concat([{newTitle: newList.listName, index: this.state.lists.length}])
+		    })
+		},
+
+		render: function(){
+	    	var componentList = this.state.lists.map(function(item, index){
+				return React.createElement(ListContainer, {title: item.newTitle, key: item.index, index: index, remove: this.handleRemoveList})
+	    	}.bind(this));
+	    	return (
+	    		React.createElement("div", {className: "container"}, 
+	       			React.createElement("div", {className: "row"}, 
+	          			React.createElement(AddList, {add: this.addNewList}), 
+	          			componentList
+	        		)
+	      		)
+	    	)
+	  	}
 	});
 
 	React.render(React.createElement(App, null), document.getElementById('app'))
@@ -20444,6 +20461,7 @@
 	var React = __webpack_require__(1);
 	var AddItem = __webpack_require__(158);
 	var List = __webpack_require__(159);
+	var AddList = __webpack_require__(160);
 
 	var ListContainer = React.createClass({displayName: "ListContainer",
 		getInitialState(){
@@ -20468,10 +20486,18 @@
 		},
 
 		render: function() {
+			var styles = {
+			  container: {
+			    border: "1px solid rgb(208, 208, 208)",
+			    marginTop: 10,
+			    marginBottom: 10,
+			    borderRadius: 5
+			  }
+			};
 			return (
-				React.createElement("div", {className: "col-sm-6 col-md-offset-3"}, 
-			        React.createElement("div", {className: "col-sm-12"}, 
-			     		React.createElement("h3", {className: "text-center"}, " Todo List "), 
+				React.createElement("div", {className: "col-sm-6"}, 
+			        React.createElement("div", {className: "col-sm-12", style: styles.container}, 
+			     		React.createElement("h3", {className: "text-center"}, " ", this.props.title, " "), 
 			          	React.createElement(AddItem, {add: this.handleAddItem}), 
 			          	React.createElement(List, {items: this.state.list, remove: this.handleRemoveItem})
 			        )
@@ -20581,6 +20607,52 @@
 	});
 
 	module.exports = List;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var AddList = React.createClass({displayName: "AddList",
+		getInitialState: function() {
+			return {
+				listName: ''
+			}
+		},
+
+		handleChange: function(e) {
+			this.setState({
+				listName: e.target.value
+			})
+		},
+
+		handleSubmit: function(e) {
+			event.preventDefault();
+			this.props.add(this.state.listName);
+			this.setState({
+				listName: ''
+			})
+		},
+
+		render: function() {
+			return (
+				React.createElement("form", {className: "col-sm-6", onSubmit: this.handleSubmit}, 
+					React.createElement("h3", {className: "text-center"}, " Create New List "), 
+					"List Name:", 
+					React.createElement("input", {type: "text", 
+						placeholder: "List Name", 
+						className: "form-control", 
+						value: this.state.listName, 
+						onChange: this.handleChange}), 
+					React.createElement("button", {type: "submit", className: "btn btn-primary"}, 
+						"Submit ")
+				)
+			)
+		}
+	});
+
+	module.exports = AddList;
 
 /***/ }
 /******/ ]);

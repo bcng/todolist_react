@@ -1,6 +1,7 @@
 var React = require('react');
 var AddItem = require('./AddItem');
 var List = require('./List');
+var AddList = require('./AddList');
 
 var ListContainer = React.createClass({
 	getInitialState(){
